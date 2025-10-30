@@ -70,6 +70,43 @@ await auth.api.linkSocialAccount({
 });
 ```
 
+### Unlink account
+
+To unlink a previously linked provider account, use `unlinkAccount` on the client or the corresponding server API. By default, unlinking the user's last remaining account is blocked to prevent lockout.
+
+```ts
+// client-side usage
+await authClient.unlinkAccount({
+  providerId: "google", // required
+  // accountId: "provider_account_id", // optional, to target a specific account if multiple exist
+})
+```
+
+```ts
+// server-side usage
+await auth.api.unlinkAccount({
+  body: {
+    providerId: "google",
+    // accountId: "provider_account_id", // optional
+  },
+  headers: // pass headers with authenticated token
+});
+```
+
+If you want to allow unlinking the last remaining account (not recommended in most cases), enable it in your auth configuration:
+
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
+export const auth = betterAuth({
+  account: {
+    accountLinking: {
+      allowUnlinkingAll: true,
+    },
+  },
+});
+```
+
 ### Get Access Token
 
 To get the access token for a social provider, you can use the `getAccessToken` function with the `authClient` or `auth.api` for server-side usage. When you use this endpoint, if the access token is expired, it will be refreshed.
