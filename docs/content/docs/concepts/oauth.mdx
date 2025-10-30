@@ -72,7 +72,11 @@ await auth.api.linkSocialAccount({
 
 ### Unlink account
 
-To unlink a previously linked provider account, use `unlinkAccount` on the client or the corresponding server API. By default, unlinking the user's last remaining account is blocked to prevent lockout.
+To unlink a previously linked provider account, use `unlinkAccount` on the client or the corresponding server API.
+
+<Callout>
+By default, unlinking the user's last remaining account is blocked to prevent lockout. You can override this with `allowUnlinkingAll`.
+</Callout>
 
 ```ts
 // client-side usage
@@ -106,6 +110,8 @@ export const auth = betterAuth({
   },
 });
 ```
+
+See more in [Users & Accounts → Account Unlinking](/docs/concepts/users-accounts#account-unlinking).
 
 ### Get Access Token
 
