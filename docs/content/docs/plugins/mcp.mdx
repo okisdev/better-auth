@@ -215,7 +215,7 @@ MCP clients initiate the flow by redirecting users to the authorization endpoint
 }
 ```
 
-If the user is not authenticated, they will be redirected to the `loginPage` specified in your plugin configuration. After successful authentication, they will be redirected back to complete the authorization.
+If the user is not authenticated, they will be redirected to the `loginPage` specified in your plugin configuration. The plugin automatically stores the authorization request and continues the OAuth flow after the user successfully logs in.
 
 #### 2. Token Exchange
 
@@ -248,9 +248,9 @@ const tokens = await response.json();
 //   access_token: string,
 //   token_type: "Bearer",
 //   expires_in: number,
-//   refresh_token?: string,
+//   refresh_token?: string, // Only included if "offline_access" scope was requested
 //   scope: string,
-//   id_token?: string
+//   id_token?: string // Only included if "openid" scope was requested
 // }
 ```
 
